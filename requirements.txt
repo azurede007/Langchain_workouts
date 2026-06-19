@@ -1,0 +1,7 @@
+langchain-google-genai
+langchain-openai
+
+#Prompt Templates
+langchain
+langchain-core
+python-dotenv
