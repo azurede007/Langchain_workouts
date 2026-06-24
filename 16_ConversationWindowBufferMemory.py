@@ -1,7 +1,7 @@
 
 import warnings
 
-from langchain_classic.memory import ConversationBufferMemory
+from langchain_classic.memory import ConversationBufferMemory, ConversationBufferWindowMemory
 
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 warnings.filterwarnings("ignore", category=UserWarning)
@@ -11,8 +11,7 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from langchain_core.prompts import ChatPromptTemplate, MessagesPlaceholder
 from langchain_core.output_parsers import StrOutputParser
 # NEW: Import the modern history utilities
-from langchain_community.chat_message_histories import ChatMessageHistory
-from langchain_core.runnables.history import RunnableWithMessageHistory
+
 
 from dotenv import load_dotenv
 
@@ -30,7 +29,7 @@ prompt_template = ChatPromptTemplate.from_messages([
 
 parser = StrOutputParser()
 
-memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
+memory = ConversationBufferWindowMemory(memory_key="chat_history", return_messages=True,k=2)
 
 # 3. Wrap your chain with message history management
 chain = (
